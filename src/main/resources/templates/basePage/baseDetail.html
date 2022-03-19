@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${base.name}+'-专注'+${base.name}+'团建|'+${base.name}+'团建活动方案策划'"></title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/basePage.css"
+          th:href="@{/project/css/basePage.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(3)"></div>
+    <div class="recommends">
+        <div class="BaseContent">
+            <div class="ContentTitle" th:text="${base.name}+'-专注'+${base.name}+'团建|'+${base.name}+'团建活动方案策划'"></div>
+            <div class="ContentThings">
+                类型：<div class="ContentThing" style="color: #e32b0c" th:text="${base.type}"></div>
+                <div class="ContentThing" th:text="'地区：'+${base.province}+'・'+${base.city}"></div>
+                <div class="ContentThing" th:text="'车程：'+${base.hour}+'小时内'"></div>
+            </div>
+            <div class="Spans"><div class="Span"></div>简介</div>
+            <div class="Content" th:utext="${base.content}"></div>
+        </div>
+        <div class="ActivityTj" th:if="${activityList}">
+            <div class="Spans"><div class="Span"></div><div th:text="${base.name}+'团建方案推荐'"></div></div>
+            <div class="ATjs">
+                <a th:href="@{/getActivityDetail/(id = ${activityList.id})}" style="text-decoration: none;color: #212121;" th:each="activityList,status : ${activityList}">
+                    <div class="actShow">
+                        <img th:src="${activityList.picture}">
+                        <div class="actName" th:text="${activityList.name}"></div>
+                        <div class="actReason" th:text="${activityList.reason}"></div>
+                        <div class="actThings">
+                            <div class="actPrice" th:text="${activityList.price}+'元起/人'"></div>
+                            <div class="actTime" th:text="${activityList.time}+'小时'"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

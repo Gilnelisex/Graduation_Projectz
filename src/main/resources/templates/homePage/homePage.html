@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/homePage.css"
+          th:href="@{/project/css/homePage.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(1)"></div>
+    <div class="rotations">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+            <ol class="carousel-indicators">
+                <li th:each="rotationList,status : ${rotationList}" data-target="#myCarousel"
+                    th:attr="data-slide-to=${status.index}" th:class="${status.index == 0} ? 'active' : ''"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div th:each="rotationList,status : ${rotationList}"
+                     th:classappend="${status.index == 0} ? 'active' : ''" class="item">
+                    <a th:href="${rotationList.url}" href="/">
+                        <img th:src="@{${rotationList.image}}">
+                    </a>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="recommends">
+        <div class="activitys">
+            <div class="Titles">
+                <div class="huget">最新团建/拓展课程</div>
+                <div class="mediumt">更有创意更好玩，有深度有效果</div>
+            </div>
+            <div class="actShows">
+                <a th:href="@{/getActivityDetail/(id = ${activityList.id})}" style="text-decoration: none;color: #212121;" th:each="activityList,status : ${activityList}">
+                    <div class="actShow">
+                        <img th:src="${activityList.picture}">
+                            <div class="actName" th:text="${activityList.name}"></div>
+                            <div class="actReason" th:text="${activityList.reason}"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="bases">
+            <div class="Titles">
+                <div class="huget">热门目的地</div>
+                <div class="mediumt">当季超火爆的团建/拓展目的地，大公司都来这里做活动！</div>
+            </div>
+            <div class="baseShows">
+                <a th:href="@{/getBaseDetail/(id = ${baseList.id})}" style="text-decoration: none;color: #212121;" th:each="baseList,status : ${baseList}">
+                    <div class="baseShow">
+                        <img th:src="${baseList.picture}">
+                        <div class="n-t">
+                            <div style="font-size: 30px;" th:text="${baseList.name}"></div>
+                            <div style="font-size: 18px;" th:text="${baseList.type}"></div>
+                        </div>
+                    </div>
+                </a>
+                <a style="text-decoration: none" th:href="@{/basePage}">
+                    <div class="infoMore">
+                        <div class="topLine"></div>
+                        <div class="midWord">
+                            <div th:text="${baseCount}"></div><sup>+</sup>个目的地任选
+                        </div>
+                        <div class="footJump">查看更多 ></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="reviews">
+        <div class="Titles">
+            <div style="color: white" class="huget">客户案例</div>
+        </div>
+        <div class="reviewShows">
+            <a th:href="@{/getReviewDetail/(id = ${reviewList.id})}" style="text-decoration: none;color: #212121;" th:each="reviewList,status : ${reviewList}">
+                <div class="reviewShow">
+                    <img th:src="${reviewList.picture}">
+                    <div class="reviewTitle" th:text="${reviewList.title}"></div>
+                </div>
+            </a>
+            <a style="text-decoration: none" th:href="@{/reviewPage}">
+                <div style="height: 270px" class="infoMore">
+                    <div class="topLine"></div>
+                    <div class="midWord">
+                        <div>知名企业精彩案例</div>
+                    </div>
+                    <div class="footJump">查看更多 ></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="praises">
+        <div class="Titles">
+            <div class="huget">公司团建/拓展，找我们就对了</div>
+            <div class="mediumt">我们是专业团建公司|拓展公司，专属管家 私人订制！</div>
+        </div>
+        <div class="serves">
+            <div class="serve">
+                <img style="width: 72px;"  th:src="@{/project/image/serve_01.png}">
+                <div class="serveTitle">沟通需求</div>
+                <div class="serveInfo">1V1详细沟通，深入了解需求和希望达到的活动效果</div>
+            </div>
+            <div class="serve">
+                <img style="width: 53px;" th:src="@{/project/image/serve_02.png}">
+                <div class="serveTitle">策划方案</div>
+                <div class="serveInfo">根据客户需求，专属定制活动方案，并根据客户反馈不断完善</div>
+            </div>
+            <div class="serve">
+                <img style="width: 63px;" th:src="@{/project/image/serve_03.png}">
+                <div class="serveTitle">签合同上保险</div>
+                <div class="serveInfo">签订正规合同，高额保险保驾护航,活动更安心</div>
+            </div>
+            <div class="serve">
+                <img style="width: 63px;" th:src="@{/project/image/serve_04.png}">
+                <div class="serveTitle">活动执行</div>
+                <div class="serveInfo">专业领队+资深培训师确保活动完美执行</div>
+            </div>
+            <div class="serve">
+                <img style="width: 67px;" th:src="@{/project/image/serve_05.png}">
+                <div class="serveTitle">管家回访</div>
+                <div class="serveInfo">认真倾听客户反馈不断提升服务质量</div>
+            </div>
+            <div class="serve">
+                <img style="width: 57px;" th:src="@{/project/image/serve_06.png}">
+                <div class="serveTitle">再次合作</div>
+                <div class="serveInfo">每次的合作都让我们成为更信赖的朋友</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

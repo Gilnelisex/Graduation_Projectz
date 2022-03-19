@@ -1,0 +1,73 @@
+#application.yml
+spring:
+  application:
+    name: springboot-demo
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  thymeleaf:
+    #    prefix: classpath:/templates
+    cache: false
+    encoding: utf-8
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**
+    freemarker:
+      cache: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: root
+    password: Zh114514
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: TutorialsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+#  redis:
+#    port: 6379 # Redis ???
+#    database: 0
+#    host: localhost  # Redis ?????IP
+#    password: myredis # Redis ????
+mybatis:
+  #  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.example.demo.domain
+  mapper-locations: classpath:mapper/**/*.xml
+pagehelper:
+  helperDialect: mysql
+  offsetAsPageNum: true
+  rowBoundsWithCount: true
+  reasonable: false
+  supportMethodsArguments: true
+  returnPageInfo: true
+  params: count=countSql
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+# \u8F93\u51FA mybatis SQL\u65E5\u5FD7
+logging:
+  level:
+    root: INFO
+    com.example.demo.mapper: DEBUG
+    # ????
+    #    path: /Users/Forzh/projects/SpringBootProjects/springboot-tutorials
+  #    file: demo.log
+  pattern:
+    file: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n"
+    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n"
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        name: DJSESSIONID

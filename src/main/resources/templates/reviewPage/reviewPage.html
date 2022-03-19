@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>案例回顾</title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/reviewPage.css"
+          th:href="@{/project/css/reviewPage.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(4)"></div>
+    <img class="headImg" th:src="@{/project/image/albanner.jpg}">
+    <div class="recommends">
+        <div class="reviewTitlez">
+            <div id="rt1">更多案例</div>
+            <div id="rt2">More case</div>
+            <div id="rt3">. 团建心得体会</div>
+        </div>
+        <div class="reviewLists">
+            <a style="text-decoration: none; width: 30%; margin-bottom: 20px" th:each="reviewList,status : ${reviewList}" th:href="@{/getReviewDetail/(id = ${reviewList.id})}">
+                <div class="reviews">
+                    <img th:src="${reviewList.picture}">
+                    <div class="reviewst" th:text="${reviewList.title}"></div>
+                </div>
+            </a>
+            <div class="jump">
+                <nav aria-label="Page navigation" class="text-center" style="margin: 0px;padding: 0px;">
+                    <ul class="pagination">
+                        <li th:if="${reviewList.pageNum}>1">
+                            <a th:href="@{/reviewPage(pageNum=1)}" aria-label="Previous">
+                                <span aria-hidden="true"><<</span>
+                            </a>
+                        </li>
+                        <li th:if="${reviewList.pageNum}>1">
+                            <a th:href="@{/reviewPage(pageNum=${reviewList.pageNum}-1)}">&lt;</a>
+                        </li>
+                        <li th:if="${reviewList.pageNum-3 gt 1}">
+                            <a th:text="${reviewList.pageNum-4}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}-4)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum-2 gt 1}">
+                            <a th:text="${reviewList.pageNum-3}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}-3)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum-1 gt 1}">
+                            <a th:text="${reviewList.pageNum-2}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}-2)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum gt 1}">
+                            <a th:text="${reviewList.pageNum-1}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}-1)}"></a>
+                        </li>
+                        <!--/* 当前页 */-->
+                        <li th:if="${reviewList.pageNum le reviewList.pages}"
+                            th:class="${reviewList.pageNum le reviewList.pages ? 'active':''}">
+                            <a th:text="${reviewList.pageNum}" th:href="@{/reviewPage(pageNum=${reviewList.pageNum})}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum+1 le reviewList.pages}">
+                            <a th:text="${reviewList.pageNum+1}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}+1)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum+2 le reviewList.pages}">
+                            <a th:text="${reviewList.pageNum+2}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}+2)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum+3 le reviewList.pages}">
+                            <a th:text="${reviewList.pageNum+3}"
+                               th:href="@{/reviewPage(pageNum=${reviewList.pageNum}+3)}"></a>
+                        </li>
+                        <li th:if="${reviewList.pageNum lt reviewList.pages}">
+                            <a th:href="@{/reviewPage(pageNum=${reviewList.pageNum}+1)}">&gt;</a>
+                        </li>
+                        <li th:if="${reviewList.pageNum lt reviewList.pages}">
+                            <a th:href="@{/reviewPage(pageNum=${reviewList.pages})}" aria-label="Next">
+                                <span aria-hidden="true">>></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="pages" th:text="共+${reviewList.pages}+页"></div>
+                <div class="total" th:text="${reviewList.total}+条数据"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>框架</title>
+    <link rel="stylesheet" href="../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:fragment="header(select)" class="header">
+        <a style="text-decoration: none;width: 18%" th:href="@{/}">
+            <div class="logoz">拓展训练公司</div>
+        </a>
+        <div class="panelz">
+            <a style="text-decoration: none;width: 25%" th:href="@{/}">
+                <div class="panels" th:classappend="${select} == 1? 'actives' : ''">首页</div>
+            </a>
+            <a style="text-decoration: none;width: 25%" th:href="@{/activityPage}">
+                <div class="panels" th:classappend="${select} == 2? 'actives' : ''">拓展活动</div>
+            </a>
+            <a style="text-decoration: none;width: 25%" th:href="@{/basePage}">
+                <div class="panels" th:classappend="${select} == 3? 'actives' : ''">拓展基地</div>
+            </a>
+            <a style="text-decoration: none;width: 25%" th:href="@{/reviewPage}">
+                <div class="panels" th:classappend="${select} == 4? 'actives' : ''">案例回顾</div>
+            </a>
+        </div>
+        <div class="loginz">
+            <a style="background:  #13b9f7" th:if="${session.users == null}" th:href="@{/register}" id="register" type="button">注册</a>
+            <a style="background:  #1ab394" th:if="${session.users == null}" th:href="@{/login}" id="login" type="button">登录</a>
+            <div th:if="${session.users != null}" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu0" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    <img class="user-picture" th:src="${session.users.picture}">
+                    <div class="user-name" th:text="'欢迎：'+${session.users.nickname}"></div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu0">
+                    <li><a th:href="@{/personalCenter}">个人中心</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a th:href="@{/getOrderManage}">订单管理</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a th:href="@{/logout}">注销</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

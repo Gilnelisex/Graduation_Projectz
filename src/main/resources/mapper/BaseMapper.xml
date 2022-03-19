@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.BaseMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Base">
+        <id property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="picture" column="Picture" jdbcType="VARCHAR"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="type" column="Type" jdbcType="VARCHAR"/>
+        <result property="content" column="Content" jdbcType="VARCHAR"/>
+        <result property="hour" column="Hour" jdbcType="INTEGER"/>
+        <result property="starthour" column="Starthour" jdbcType="INTEGER"/>
+        <result property="endhour" column="Endhour" jdbcType="INTEGER"/>
+        <result property="basestatus" column="BaseStatus" jdbcType="INTEGER"/>
+        <result property="createtime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="province" column="Province" jdbcType="VARCHAR"/>
+        <result property="city" column="City" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID
+        ,Picture,Name,
+        Type,Content,Hour,
+        BaseStatus,CreateTime,UpdateTime,
+        Province,City
+    </sql>
+
+    <select id="selectAllBase" parameterType="com.example.demo.domain.Base" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from base
+        <where>
+            <if test="base.name != null and base.name.trim().length()>0">
+                <bind name="namez" value="'%' + base.name + '%'"/>
+                and Name like #{namez}
+            </if>
+            <if test="base.type != null and base.type.trim().length()>0">
+                and Type = #{base.type}
+            </if>
+            <if test="base.province != null and base.province.trim().length()>0">
+                and Province = #{base.province}
+            </if>
+            <if test="base.city != null and base.city.trim().length()>0">
+                and City = #{base.city}
+            </if>
+            <if test="base.starthour != null">
+                and Hour >= #{base.starthour}
+            </if>
+            <if test="base.endhour != null">
+                and Hour <![CDATA[<]]>= #{base.endhour}
+            </if>
+            and BaseStatus = 1
+        </where>
+        order by UpdateTime desc
+    </select>
+
+    <select id="selectAllType" resultMap="BaseResultMap">
+        select distinct (Type)
+        from base
+        where BaseStatus = 1;
+    </select>
+
+    <select id="selectAllProv" resultMap="BaseResultMap">
+        select distinct (Province)
+        from base
+        where BaseStatus = 1;
+    </select>
+
+    <select id="selectAllCity" parameterType="com.example.demo.domain.Base" resultMap="BaseResultMap">
+        select distinct (City)
+        from base
+        where Province = #{province} and BaseStatus = 1;
+    </select>
+
+    <select id="selectNewBase" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from base
+        where BaseStatus = 1
+        order by UpdateTime desc
+        limit 5
+    </select>
+
+    <select id="selectBaseCount" resultType="Integer">
+        select count(*)
+        from base
+        where BaseStatus = 1
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from base
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from base
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Base"
+            useGeneratedKeys="true">
+        insert into base
+        ( ID, Picture, Name
+        , Type, Content, Hour
+        , BaseStatus, CreateTime, UpdateTime
+        , Province, City)
+        values ( #{id,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+               , #{type,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{hour,jdbcType=INTEGER}
+               , #{basestatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+               , #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Base"
+            useGeneratedKeys="true">
+        insert into base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="picture != null">Picture,</if>
+            <if test="name != null">Name,</if>
+            <if test="type != null">Type,</if>
+            <if test="content != null">Content,</if>
+            <if test="hour != null">Hour,</if>
+            <if test="basestatus != null">BaseStatus,</if>
+            <if test="createtime != null">CreateTime,</if>
+            <if test="updatetime != null">UpdateTime,</if>
+            <if test="province != null">Province,</if>
+            <if test="city != null">City,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="picture != null">#{picture,jdbcType=VARCHAR},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="hour != null">#{hour,jdbcType=INTEGER},</if>
+            <if test="basestatus != null">#{basestatus,jdbcType=INTEGER},</if>
+            <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+            <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+            <if test="province != null">#{province,jdbcType=VARCHAR},</if>
+            <if test="city != null">#{city,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Base">
+        update base
+        <set>
+            <if test="picture != null">
+                Picture = #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                Content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="hour != null">
+                Hour = #{hour,jdbcType=INTEGER},
+            </if>
+            <if test="basestatus != null">
+                BaseStatus = #{basestatus,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="province != null">
+                Province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                City = #{city,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Base">
+        update base
+        set Picture    = #{picture,jdbcType=VARCHAR},
+            Name       = #{name,jdbcType=VARCHAR},
+            Type       = #{type,jdbcType=VARCHAR},
+            Content    = #{content,jdbcType=VARCHAR},
+            Hour       = #{hour,jdbcType=INTEGER},
+            BaseStatus = #{basestatus,jdbcType=INTEGER},
+            CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            Province   = #{province,jdbcType=VARCHAR},
+            City       = #{city,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

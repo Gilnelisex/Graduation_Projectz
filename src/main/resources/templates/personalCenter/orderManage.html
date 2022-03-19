@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <link rel="stylesheet" href="../../static/project/css/orderManage.css"
+          th:href="@{/project/css/orderManage.css}">
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/project/js/orderManage.js"
+            th:src="@{/project/js/orderManage.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(0)"></div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-8 column">
+            <div class="myOrder"><span
+                    style="min-width: 10px; min-height: 25px;background: #d03018;margin-right: 10px"></span>我的订单
+            </div>
+            <div class="content" th:if="!${joininfoList}">您没有下过任何订单
+                <a href="/activityPage" id="goToActivity">前往预约活动</a>
+            </div>
+            <div class="contents" th:if="${joininfoList}">
+                <div class="orders" style="border: 1px solid #cbd1d7;margin: 14px;width: 100%"
+                     th:each="joininfoList,status : ${joininfoList}">
+                    <img id="orderPic" th:src="${joininfoList.apic}">
+                    <div class="orderContent">
+                        <div class="orderContents" style="color: black; font-weight: bold"
+                             th:text="${joininfoList.aname}"></div>
+                        <div class="orderContents" th:text="'预约人：'+${joininfoList.username}"></div>
+                        <div class="orderContents" th:text="'审核管理员：'+${joininfoList.mnickname}"></div>
+                        <div class="orderContents" th:text="'咨询电话：'+${joininfoList.mphonenum}"></div>
+                        <div class="orderContents" th:text="'订单状态：'+${joininfoList.infostatusz}"></div>
+                        <div class="orderContents"
+                             th:text="'预约日期：'+${#dates.format(joininfoList.appointment, 'yyyy-MM-dd')}"></div>
+                        <div class="orderContents">
+                            总价格：<span style="color: #d03018" th:text="${joininfoList.userprices}"></span>元
+                        </div>
+                    </div>
+                    <div class="doThing">
+                        <a id="getIn" href="javascript:void(0)" th:onclick="|getIn(${joininfoList.id})|"
+                           data-toggle="modal" data-backdrop="static"
+                           data-target="#getIns">查看详情</a>
+                        <a id="cancelz" style="color:#f8ac59;" th:if="${joininfoList.infostatus}==0"
+                           href="javascript:void(0)" th:onclick="|cancelz(${joininfoList.id})|" data-toggle="modal"
+                           data-backdrop="static"
+                           data-target="#cancelzs">取消订单</a>
+                        <a id="deletez" style="color: #d03018" th:if="${joininfoList.infostatus}==2"
+                           href="javascript:void(0)" th:onclick="|deletez(${joininfoList.id})|" data-toggle="modal"
+                           data-backdrop="static"
+                           data-target="#deletezs">删除订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 column">
+        </div>
+    </div>
+</div>
+<div id="getIns" class="modal fade bs-updateform-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel0">订单详情</h4>
+            </div>
+            <div id="updateform-modal-body0" class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cancelzs" class="modal fade bs-updateform-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">取消订单</h4>
+            </div>
+            <div id="updateform-modal-body1" class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<div id="deletezs" class="modal fade bs-updateform-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">删除订单</h4>
+            </div>
+            <div id="updateform-modal-body2" class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

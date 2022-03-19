@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RotationMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Rotation">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="image" column="Image" jdbcType="VARCHAR"/>
+            <result property="url" column="Url" jdbcType="VARCHAR"/>
+            <result property="information" column="Information" jdbcType="VARCHAR"/>
+            <result property="rotationstatus" column="RotationStatus" jdbcType="INTEGER"/>
+            <result property="location" column="Location" jdbcType="INTEGER"/>
+            <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+            <result property="createtime" column="CreateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,Image,Url,
+        Information,RotationStatus,Location,
+        UpdateTime,CreateTime
+    </sql>
+
+    <select id="selectAllRotation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from rotation
+        where RotationStatus = 1
+        order by Location asc
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from rotation
+        where  ID = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from rotation
+        where  ID = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Rotation" useGeneratedKeys="true">
+        insert into rotation
+        ( ID,Image,Url
+        ,Information,RotationStatus,Location
+        ,UpdateTime,CreateTime)
+        values (#{id,jdbcType=INTEGER},#{image,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR}
+        ,#{information,jdbcType=VARCHAR},#{rotationstatus,jdbcType=INTEGER},#{location,jdbcType=INTEGER}
+        ,#{updatetime,jdbcType=TIMESTAMP},#{createtime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Rotation" useGeneratedKeys="true">
+        insert into rotation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">ID,</if>
+                <if test="image != null">Image,</if>
+                <if test="url != null">Url,</if>
+                <if test="information != null">Information,</if>
+                <if test="rotationstatus != null">RotationStatus,</if>
+                <if test="location != null">Location,</if>
+                <if test="updatetime != null">UpdateTime,</if>
+                <if test="createtime != null">CreateTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="image != null">#{image,jdbcType=VARCHAR},</if>
+                <if test="url != null">#{url,jdbcType=VARCHAR},</if>
+                <if test="information != null">#{information,jdbcType=VARCHAR},</if>
+                <if test="rotationstatus != null">#{rotationstatus,jdbcType=INTEGER},</if>
+                <if test="location != null">#{location,jdbcType=INTEGER},</if>
+                <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+                <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Rotation">
+        update rotation
+        <set>
+                <if test="image != null">
+                    Image = #{image,jdbcType=VARCHAR},
+                </if>
+                <if test="url != null">
+                    Url = #{url,jdbcType=VARCHAR},
+                </if>
+                <if test="information != null">
+                    Information = #{information,jdbcType=VARCHAR},
+                </if>
+                <if test="rotationstatus != null">
+                    RotationStatus = #{rotationstatus,jdbcType=INTEGER},
+                </if>
+                <if test="location != null">
+                    Location = #{location,jdbcType=INTEGER},
+                </if>
+                <if test="updatetime != null">
+                    UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createtime != null">
+                    CreateTime = #{createtime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Rotation">
+        update rotation
+        set 
+            Image =  #{image,jdbcType=VARCHAR},
+            Url =  #{url,jdbcType=VARCHAR},
+            Information =  #{information,jdbcType=VARCHAR},
+            RotationStatus =  #{rotationstatus,jdbcType=INTEGER},
+            Location =  #{location,jdbcType=INTEGER},
+            UpdateTime =  #{updatetime,jdbcType=TIMESTAMP},
+            CreateTime =  #{createtime,jdbcType=TIMESTAMP}
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

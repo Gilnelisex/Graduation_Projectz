@@ -1,0 +1,256 @@
+.interface {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 640px;
+    width: 100%;
+    border-radius: 0;
+}
+
+.personData {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0;
+    margin: 3%;
+    height: 495px;
+    width: 22%;
+}
+
+.baseData {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0;
+    margin: 3%;
+    height: 310px;
+    width: 66%;
+}
+
+.dataTitle {
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    color: #333;
+    background-color: #f0f3f4;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+}
+
+.dataPicture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+    width: 100%;
+}
+
+.pictured {
+    width: 125px;
+    height: 125px;
+    border: 1px solid #f0f3f4;
+    border-radius: 50%;
+}
+
+#changePicture {
+    text-decoration: none;
+}
+
+.datas {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 440;
+    font-style: normal;
+    font-size: 15px;
+    margin: 0;
+    padding: 25px;
+    height: 51px;
+    width: 100%;
+    border-top: 1px solid #e7eaec;
+}
+
+.updatePerson {
+    display: flex;
+    flex-direction: column;
+    height: 270px;
+    width: 100%;
+    margin: 0;
+    padding: 25px;
+    justify-content: space-around;
+}
+
+.updatePersons {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    margin: 10px;
+    align-items: center;
+}
+
+.updateButton {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.updatePersonsTitle {
+    height: 35px;
+    line-height: 35px;
+    width: 25%;
+    text-align: right;
+    padding: 0 5%;
+}
+
+#nickname, #phonenum {
+    height: 35px;
+    width: 64%;
+    margin-right: 11%;
+    padding: 5px 10px;
+    border: 1px solid #e5e6e7;
+}
+
+#man, #women {
+    margin: 0 10px;
+    padding: 0;
+    height: 14px;
+    width: 14px;
+}
+
+#submit {
+    height: 35px;
+    width: 65px;
+    color: white;
+    margin: 0 5%;
+    padding: 0;
+    border: 0;
+    background: #189f92;
+}
+
+#reset {
+    height: 35px;
+    width: 65px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #ed5565;
+}
+
+.changPic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1%;
+    width: 100%;
+}
+
+.review {
+    /*height: 360px;*/
+    /*width: 360px;*/
+    max-width: 850px;
+    border: 1px solid #f0f3f4;
+}
+
+.formPic{
+    display: flex;
+    width: 100%;
+    margin-top: 36px;
+    justify-content: space-between;
+}
+
+.upload, #picSubmit {
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0;
+    line-height: 36px;
+    height: 36px;
+    width: 80px;
+    color: white;
+    margin: 0;
+    border: 0;
+    background: #189f92;
+}
+
+.disabled {
+    background: darkgray;
+}
+
+.passwordChange {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial Negreta', 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 520;
+    font-style: normal;
+    font-size: 16px;
+}
+
+
+.updatePerson {
+    display: flex;
+    flex-direction: column;
+    height: 270px;
+    width: 100%;
+    margin: 0;
+    padding: 25px;
+    justify-content: space-around;
+}
+
+.updatePersons {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    margin: 10px;
+    align-items: center;
+}
+
+.updateButton {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.updatePersonsTitle {
+    height: 35px;
+    line-height: 35px;
+    width: 25%;
+    text-align: right;
+    padding: 0 5%;
+}
+
+#newPassword, #confirmPassword {
+    height: 35px;
+    width: 64%;
+    margin-right: 11%;
+    padding: 5px 10px;
+    border: 1px solid #e5e6e7;
+}
+
+#submits {
+    height: 35px;
+    width: 65px;
+    color: white;
+    margin: 0 5%;
+    padding: 0;
+    border: 0;
+    background: #189f92;
+}
+
+#reset {
+    height: 35px;
+    width: 65px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #f8ac59;
+}
+

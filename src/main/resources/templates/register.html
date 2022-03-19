@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <link rel="stylesheet" href="../static/project/css/register.css"
+          th:href="@{/project/css/register.css}">
+    <script src="../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+    <script src="../static/project/js/register.js" th:inline="javascript"
+            th:src="@{/project/js/register.js}"></script>
+    <script src="../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(0)"></div>
+    <div class="alert alert-success" style="width: 600px" th:if="${not #strings.isEmpty(success)}">
+        <a href="/" style="float:right;font-weight: normal;font-size: 16px;color: #28a745" data-dismiss="alert">返回首页</a>
+        <strong th:text="${success}"></strong>
+    </div>
+    <div class="alert alert-danger" style="width: 600px" th:if="${not #strings.isEmpty(fail)}">
+        <a href="/register" class="close" data-dismiss="alert">&times;</a>
+        <strong th:text="${fail}"></strong>
+    </div>
+    <div class="register">
+        <div class="headers">用户注册</div>
+        <form action="/doRegister" class="registerForm" onsubmit="return submits()" method="post">
+            <input id="nickname" type="text" name="nickname" placeholder="请输入昵称">
+            <input id="account" type="text" name="account" placeholder="请输入账号">
+            <input id="password" type="password" name="password" placeholder="请输入密码">
+            <input id="phonenum" type="text" name="phonenum" placeholder="填写国内手机号码">
+            <div class="verifyCode">
+                <input id="verify" class="verify" type="text" name="verify" placeholder="验证码">
+                <img th:onclick="getVCode()" id="code">
+            </div>
+            <input id="submit" type="submit" value="注册">
+        </form>
+    </div>
+</div>
+</body>
+</html>

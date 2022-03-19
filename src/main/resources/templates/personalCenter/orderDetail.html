@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<header>
+    <meta charset="UTF-8">
+</header>
+<div class="qrJoinInfo">
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">用户姓名 ：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.username}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">预约活动 ：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.aname}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">电话号码 ：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.userphone}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">身份证号码：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.useridno}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">预约人数：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.usernums}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">预约时间：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${#dates.format(joininfo.appointment, 'yyyy-MM-dd')}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">审核管理员：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.mnickname}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">咨询电话：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.mphonenum}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">订单状态：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.infostatusz}">
+    </div>
+    <div class="qrJoinInfos">
+        <div class="JoinInfoTitles">总金额：</div>
+        <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.userprices}">
+    </div>
+</div>
+</html>

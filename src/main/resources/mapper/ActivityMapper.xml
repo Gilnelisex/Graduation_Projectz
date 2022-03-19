@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ActivityMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Activity">
+        <id property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="picture" column="Picture" jdbcType="VARCHAR"/>
+        <result property="field" column="Field" jdbcType="INTEGER"/>
+        <result property="reason" column="Reason" jdbcType="VARCHAR"/>
+        <result property="bright" column="Bright" jdbcType="VARCHAR"/>
+        <result property="introduce" column="Introduce" jdbcType="VARCHAR"/>
+        <result property="type" column="Type" jdbcType="VARCHAR"/>
+        <result property="harvest" column="Harvest" jdbcType="VARCHAR"/>
+        <result property="time" column="Time" jdbcType="INTEGER"/>
+        <result property="startime" column="Startime" jdbcType="INTEGER"/>
+        <result property="endtime" column="Endtime" jdbcType="INTEGER"/>
+        <result property="num" column="Num" jdbcType="INTEGER"/>
+        <result property="price" column="Price" jdbcType="INTEGER"/>
+        <result property="actstatus" column="ActStatus" jdbcType="INTEGER"/>
+        <result property="createtime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID
+        ,Name,Picture,
+        Field,Reason,Bright,
+        Introduce,Type,Harvest,
+        Time,Num,Price,
+        ActStatus,CreateTime,UpdateTime
+    </sql>
+
+    <select id="selectAllAct" parameterType="com.example.demo.domain.Activity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from activity
+        <where>
+            <if test="activity.name != null and activity.name.trim().length()>0">
+                <bind name="namez" value="'%' + activity.name + '%'"/>
+                and Name like #{namez}
+            </if>
+            <if test="activity.type != null and activity.type.trim().length()>0">
+                and Type = #{activity.type}
+            </if>
+            <if test="activity.harvest != null and activity.harvest.trim().length()>0">
+                and Harvest = #{activity.harvest}
+            </if>
+            <if test="activity.startime != null">
+                and time >= #{activity.startime}
+            </if>
+            <if test="activity.endtime != null">
+                and time <![CDATA[<]]>= #{activity.endtime}
+            </if>
+            and ActStatus = 1
+        </where>
+        order by UpdateTime desc
+    </select>
+
+    <select id="selectByBase" parameterType="Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from activity
+        where ActStatus = 1 and Field = #{value};
+    </select>
+    
+    <select id="selectAllType" resultMap="BaseResultMap">
+        select distinct (Type)
+        from activity
+        where ActStatus = 1;
+    </select>
+
+    <select id="selectAllHarvest" resultMap="BaseResultMap">
+        select distinct (Harvest)
+        from activity
+        where ActStatus = 1;
+    </select>
+
+    <select id="selectNewAct" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from activity
+        where ActStatus = 1
+        order by UpdateTime desc
+        limit 6
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from activity
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from activity
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Activity"
+            useGeneratedKeys="true">
+        insert into activity
+        ( ID, Name, Picture
+        , Field, Reason, Bright
+        , Introduce, Type, Harvest
+        , Time, Num, Price
+        , ActStatus, CreateTime, UpdateTime)
+        values ( #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}
+               , #{field,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{bright,jdbcType=VARCHAR}
+               , #{introduce,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{harvest,jdbcType=VARCHAR}
+               , #{time,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}
+               , #{actstatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Activity"
+            useGeneratedKeys="true">
+        insert into activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="name != null">Name,</if>
+            <if test="picture != null">Picture,</if>
+            <if test="field != null">Field,</if>
+            <if test="reason != null">Reason,</if>
+            <if test="bright != null">Bright,</if>
+            <if test="introduce != null">Introduce,</if>
+            <if test="type != null">Type,</if>
+            <if test="harvest != null">Harvest,</if>
+            <if test="time != null">Time,</if>
+            <if test="num != null">Num,</if>
+            <if test="price != null">Price,</if>
+            <if test="actstatus != null">ActStatus,</if>
+            <if test="createtime != null">CreateTime,</if>
+            <if test="updatetime != null">UpdateTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="picture != null">#{picture,jdbcType=VARCHAR},</if>
+            <if test="field != null">#{field,jdbcType=INTEGER},</if>
+            <if test="reason != null">#{reason,jdbcType=VARCHAR},</if>
+            <if test="bright != null">#{bright,jdbcType=VARCHAR},</if>
+            <if test="introduce != null">#{introduce,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+            <if test="harvest != null">#{harvest,jdbcType=VARCHAR},</if>
+            <if test="time != null">#{time,jdbcType=INTEGER},</if>
+            <if test="num != null">#{num,jdbcType=INTEGER},</if>
+            <if test="price != null">#{price,jdbcType=INTEGER},</if>
+            <if test="actstatus != null">#{actstatus,jdbcType=INTEGER},</if>
+            <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+            <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Activity">
+        update activity
+        <set>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                Picture = #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="field != null">
+                Field = #{field,jdbcType=INTEGER},
+            </if>
+            <if test="reason != null">
+                Reason = #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="bright != null">
+                Bright = #{bright,jdbcType=VARCHAR},
+            </if>
+            <if test="introduce != null">
+                Introduce = #{introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="harvest != null">
+                Harvest = #{harvest,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                Time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                Num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                Price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="actstatus != null">
+                ActStatus = #{actstatus,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Activity">
+        update activity
+        set Name       = #{name,jdbcType=VARCHAR},
+            Picture    = #{picture,jdbcType=VARCHAR},
+            Field      = #{field,jdbcType=INTEGER},
+            Reason     = #{reason,jdbcType=VARCHAR},
+            Bright     = #{bright,jdbcType=VARCHAR},
+            Introduce  = #{introduce,jdbcType=VARCHAR},
+            Type       = #{type,jdbcType=VARCHAR},
+            Harvest    = #{harvest,jdbcType=VARCHAR},
+            Time       = #{time,jdbcType=INTEGER},
+            Num        = #{num,jdbcType=INTEGER},
+            Price      = #{price,jdbcType=INTEGER},
+            ActStatus  = #{actstatus,jdbcType=INTEGER},
+            CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

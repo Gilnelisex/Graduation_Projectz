@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${activity.name}"></title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/activityPage.css"
+          th:href="@{/project/css/activityPage.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(2)"></div>
+    <div class="recommends">
+        <div class="ActivityThings">
+            <img class="ActivityPicture" th:src="${activity.picture}">
+            <div class="ActivityThing">
+                <div class="ActivityTitles" th:text="${activity.name}"></div>
+                <div class="ActivityReason">
+                    <span style="font-size: 16px;font-weight: bold;">推荐理由： </span><span style="font-size: 15px" th:text="${activity.reason}"></span>
+                </div>
+                <div class="ActivityRe">
+                    <div class="ActivityThree">
+                        <div><span style="color:#565656;">项目类型：</span><span th:text="${activity.type}"></span></div>
+                        <div><span style="color:#565656;">适合人数：</span><span th:text="${activity.num}+'人以上'"></span></div>
+                        <div><span style="color:#565656;">项目用时：</span><span th:text="${activity.time}+'小时'"></span></div>
+                    </div>
+                    <div class="ActivityButton">
+                        <a id="AButton" href="javascript:void(0)" th:onclick="|getEnroll(${activity.id})|" data-toggle="modal" data-backdrop="static"
+                           data-target="#getEnrolls">立即报名</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ActivityContent">
+            <div class="ChineseTitle">创意亮点</div>
+            <div class="EnglishTitle">-CREATIVE HIGHLIGHTS-</div>
+            <div class="ActivityBright" th:utext="${activity.bright}"></div>
+            <div style="margin-top: 36px" class="ChineseTitle">项目介绍</div>
+            <div class="EnglishTitle">-PROJECT INTRODUCTION-</div>
+            <div class="ActivityIntroduce" th:utext="${activity.introduce}"></div>
+        </div>
+        <div th:if="${base}" class="Content">
+            <div style="height: 25px; width: 8px; background: #d03018;margin-right: 8px"></div>
+            相关活动场地
+        </div>
+        <div th:if="${base}" class="Contents">
+            <a class="content" style="color: #666;text-decoration: none" th:href="@{/getBaseDetail/(id = ${base.id})}">
+                <div class="img">
+                    <img th:src="${base.picture}">
+                </div>
+                <div class="contents">
+                    <div class="contentsTitle" th:text="${base.name}"></div>
+                    <div class="contentsType">
+                        <div style="border: 1px solid #e9e8e8; text-align: center;padding: 0 13px; line-height: 36px; height: 36px"
+                             th:text="${base.type}"></div>
+                    </div>
+                    <div class="contentsPrice">
+                        <div th:text="${base.province}"></div>
+                        <div th:text="' . '+${base.city}"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="getEnrolls" class="modal fade bs-updateform-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel0">用户报名</h4>
+            </div>
+            <div id="updateform-modal-body0" class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    function getEnroll(id) {
+        if([[${session.users}]]) {
+            $.get(`/getEnroll/${id}`, function (resp) {
+                $('#updateform-modal-body0').html(resp);
+            });
+        }else {
+            $('#updateform-modal-body0').html("用户未登录，请先登录！");
+        }
+    }
+</script>
+</body>
+</html>

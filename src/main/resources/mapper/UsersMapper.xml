@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UsersMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Users">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="picture" column="Picture" jdbcType="VARCHAR"/>
+            <result property="account" column="Account" jdbcType="VARCHAR"/>
+            <result property="password" column="Password" jdbcType="VARCHAR"/>
+            <result property="nickname" column="Nickname" jdbcType="VARCHAR"/>
+            <result property="sex" column="Sex" jdbcType="VARCHAR"/>
+            <result property="phonenum" column="PhoneNum" jdbcType="VARCHAR"/>
+            <result property="userstatus" column="UserStatus" jdbcType="INTEGER"/>
+            <result property="level" column="Level" jdbcType="INTEGER"/>
+            <result property="registertime" column="RegisterTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,Picture,Account,
+        Password,Nickname,Sex,
+        PhoneNum,UserStatus,Level,
+        RegisterTime
+    </sql>
+
+    <select id="selectUser" parameterType="Users" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where Account = #{account} and Password = #{password}
+    </select>
+
+    <select id="selectByNickname" parameterType="Users" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where Nickname = #{nickname}
+    </select>
+
+    <select id="selectByAccount" parameterType="Users" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where Account = #{account}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where  ID = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from users
+        where  ID = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Users" useGeneratedKeys="true">
+        insert into users
+        ( ID,Picture,Account
+        ,Password,Nickname,Sex
+        ,PhoneNum,UserStatus,Level
+        ,RegisterTime)
+        values (#{id,jdbcType=INTEGER},#{picture,jdbcType=VARCHAR},#{account,jdbcType=VARCHAR}
+        ,#{password,jdbcType=VARCHAR},#{nickname,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR}
+        ,#{phonenum,jdbcType=VARCHAR},#{userstatus,jdbcType=INTEGER},#{level,jdbcType=INTEGER}
+        ,#{registertime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Users" useGeneratedKeys="true">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">ID,</if>
+                <if test="picture != null">Picture,</if>
+                <if test="account != null">Account,</if>
+                <if test="password != null">Password,</if>
+                <if test="nickname != null">Nickname,</if>
+                <if test="sex != null">Sex,</if>
+                <if test="phonenum != null">PhoneNum,</if>
+                <if test="userstatus != null">UserStatus,</if>
+                <if test="level != null">Level,</if>
+                <if test="registertime != null">RegisterTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="picture != null">#{picture,jdbcType=VARCHAR},</if>
+                <if test="account != null">#{account,jdbcType=VARCHAR},</if>
+                <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+                <if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
+                <if test="sex != null">#{sex,jdbcType=VARCHAR},</if>
+                <if test="phonenum != null">#{phonenum,jdbcType=VARCHAR},</if>
+                <if test="userstatus != null">#{userstatus,jdbcType=INTEGER},</if>
+                <if test="level != null">#{level,jdbcType=INTEGER},</if>
+                <if test="registertime != null">#{registertime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Users">
+        update users
+        <set>
+                <if test="picture != null">
+                    Picture = #{picture,jdbcType=VARCHAR},
+                </if>
+                <if test="account != null">
+                    Account = #{account,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null">
+                    Password = #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="nickname != null">
+                    Nickname = #{nickname,jdbcType=VARCHAR},
+                </if>
+                <if test="sex != null">
+                    Sex = #{sex,jdbcType=VARCHAR},
+                </if>
+                <if test="phonenum != null">
+                    PhoneNum = #{phonenum,jdbcType=VARCHAR},
+                </if>
+                <if test="userstatus != null">
+                    UserStatus = #{userstatus,jdbcType=INTEGER},
+                </if>
+                <if test="level != null">
+                    Level = #{level,jdbcType=INTEGER},
+                </if>
+                <if test="registertime != null">
+                    RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Users">
+        update users
+        set 
+            Picture =  #{picture,jdbcType=VARCHAR},
+            Account =  #{account,jdbcType=VARCHAR},
+            Password =  #{password,jdbcType=VARCHAR},
+            Nickname =  #{nickname,jdbcType=VARCHAR},
+            Sex =  #{sex,jdbcType=VARCHAR},
+            PhoneNum =  #{phonenum,jdbcType=VARCHAR},
+            UserStatus =  #{userstatus,jdbcType=INTEGER},
+            Level =  #{level,jdbcType=INTEGER},
+            RegisterTime =  #{registertime,jdbcType=TIMESTAMP}
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

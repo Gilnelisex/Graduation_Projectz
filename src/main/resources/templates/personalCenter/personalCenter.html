@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <link rel="stylesheet" href="../../static/project/css/personalCenter.css"
+          th:href="@{/project/css/personalCenter.css}">
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+    <script src="../../static/project/js/personalCenter.js" th:inline="javascript"
+            th:src="@{/project/js/personalCenter.js}"></script>
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(0)"></div>
+    <div class="interface">
+        <div class="personData">
+            <div class="dataTitle">个人资料</div>
+            <div class="dataBody">
+                <div class="dataPicture">
+                    <img class="pictured" th:src="${session.users.picture}">
+                    <a id="changePicture" href="javascript:void(0)" th:onclick="|changePic(${session.users.id})|" data-toggle="modal" data-backdrop="static"
+                       data-target="#changePic">修改头像</a>
+                </div>
+                <div class="datas">
+                    <div>昵称 :</div>
+                    <div th:text="${session.users.nickname}"></div>
+                </div>
+                <div class="datas">
+                    <div>性别 :</div>
+                    <div th:text="${session.users.sex}"></div>
+                </div>
+                <div class="datas">
+                    <div>账号 :</div>
+                    <div th:text="${session.users.account}"></div>
+                </div>
+                <div class="datas">
+                    <div>手机号码 :</div>
+                    <div th:text="${session.users.phonenum}"></div>
+                </div>
+                <div class="datas">
+                    <div>创建时间 :</div>
+                    <div th:text="${#dates.format(session.users.registertime, 'yyyy-MM-dd')}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="baseData">
+            <div class="dataTitle">基本资料
+                <a style="text-decoration: none" href="javascript:void(0)" th:onclick="|changePassword(${session.users.id})|">修改密码</a></div>
+            <form action="/changeUsers" class="updatePerson" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" th:value="${session.users.id}">
+                <div class="updatePersons">
+                    <div class="updatePersonsTitle">昵称 :</div>
+                    <input id="nickname" type="text" name="nickname" th:value="${session.users.nickname}">
+                </div>
+                <div class="updatePersons">
+                    <div class="updatePersonsTitle">手机号码 :</div>
+                    <input id="phonenum" type="text" name="phonenum" th:value="${session.users.phonenum}">
+                </div>
+                <div class="updatePersons">
+                    <div class="updatePersonsTitle">性别 :</div>
+                    <input id="man" type="radio" th:checked="${session.users.sex} eq '男'" name="sex" value="男"><span>男</span>
+                    <input id="women" type="radio" th:checked="${session.users.sex} eq '女'" name="sex" value="女"><span>女</span>
+                </div>
+                <div class="updateButton">
+                    <input id="submit" type="submit" value="保存">
+                    <input id="reset" type="reset" value="重置">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="changePic" class="modal fade bs-updateform-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel0">修改头像</h4>
+            </div>
+            <div id="updateform-modal-body0" class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

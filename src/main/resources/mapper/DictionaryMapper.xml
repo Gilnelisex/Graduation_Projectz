@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DictionaryMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Dictionary">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="relationid" column="RelationID" jdbcType="INTEGER"/>
+            <result property="relationname" column="RelationName" jdbcType="VARCHAR"/>
+            <result property="relationvalue" column="RelationValue" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,RelationID,RelationName,
+        RelationValue
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from dictionary
+        where  ID = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from dictionary
+        where  ID = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Dictionary" useGeneratedKeys="true">
+        insert into dictionary
+        ( ID,RelationID,RelationName
+        ,RelationValue)
+        values (#{id,jdbcType=INTEGER},#{relationid,jdbcType=INTEGER},#{relationname,jdbcType=VARCHAR}
+        ,#{relationvalue,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Dictionary" useGeneratedKeys="true">
+        insert into dictionary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">ID,</if>
+                <if test="relationid != null">RelationID,</if>
+                <if test="relationname != null">RelationName,</if>
+                <if test="relationvalue != null">RelationValue,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="relationid != null">#{relationid,jdbcType=INTEGER},</if>
+                <if test="relationname != null">#{relationname,jdbcType=VARCHAR},</if>
+                <if test="relationvalue != null">#{relationvalue,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Dictionary">
+        update dictionary
+        <set>
+                <if test="relationid != null">
+                    RelationID = #{relationid,jdbcType=INTEGER},
+                </if>
+                <if test="relationname != null">
+                    RelationName = #{relationname,jdbcType=VARCHAR},
+                </if>
+                <if test="relationvalue != null">
+                    RelationValue = #{relationvalue,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Dictionary">
+        update dictionary
+        set 
+            RelationID =  #{relationid,jdbcType=INTEGER},
+            RelationName =  #{relationname,jdbcType=VARCHAR},
+            RelationValue =  #{relationvalue,jdbcType=VARCHAR}
+        where   ID = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

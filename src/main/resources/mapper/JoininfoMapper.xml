@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.JoininfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.Joininfo">
+        <id property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="actid" column="ActID" jdbcType="INTEGER"/>
+        <result property="aname" column="AName" jdbcType="VARCHAR"/>
+        <result property="apic" column="APic" jdbcType="VARCHAR"/>
+        <result property="baseid" column="BaseID" jdbcType="INTEGER"/>
+        <result property="userid" column="UserID" jdbcType="INTEGER"/>
+        <result property="unickname" column="UNickname" jdbcType="VARCHAR"/>
+        <result property="uaccount" column="UAccount" jdbcType="VARCHAR"/>
+        <result property="manageid" column="ManageID" jdbcType="INTEGER"/>
+        <result property="mnickname" column="MNickname" jdbcType="VARCHAR"/>
+        <result property="maccount" column="MAccount" jdbcType="VARCHAR"/>
+        <result property="mphonenum" column="MPhonenum" jdbcType="VARCHAR"/>
+        <result property="infostatus" column="InfoStatus" jdbcType="INTEGER"/>
+        <result property="infostatusz" column="InfoStatusz" jdbcType="VARCHAR"/>
+        <result property="createtime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="username" column="UserName" jdbcType="VARCHAR"/>
+        <result property="userphone" column="UserPhone" jdbcType="VARCHAR"/>
+        <result property="useridno" column="UserIdNo" jdbcType="VARCHAR"/>
+        <result property="usernums" column="UserNums" jdbcType="INTEGER"/>
+        <result property="userprices" column="UserPrices" jdbcType="INTEGER"/>
+        <result property="appointment" column="Appointment" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID
+        ,ActID,UserID,
+        ManageID,InfoStatus,CreateTime,
+        UpdateTime,UserName,UserPhone,
+        UserIdNo,UserNums,UserPrices,
+        Appointment
+    </sql>
+
+    <select id="selectByDate" parameterType="com.example.demo.domain.Joininfo" resultMap="BaseResultMap">
+        select j.ID
+        from joininfo j
+                 left join activity a on (j.ActID = a.ID)
+        where j.Appointment = #{joininfo.appointment}
+          and InfoStatus in (0, 1)
+          and a.field = #{joininfo.baseid}
+          and j.UserID != #{joininfo.userid}
+    </select>
+
+    <select id="selectByUserID" parameterType="Integer" resultMap="BaseResultMap">
+        select j.*, d.RelationValue InfoStatusz, u.Nickname UNickname, u.Account UAccount, m.Nickname MNickname,
+               m.Account MAccount, m.PhoneNum MPhonenum, a.Name AName, a.Picture APic
+        from (((joininfo j left join users u on (j.UserID = u.id)) left join managers m on (j.ManageID = m.id)) left join
+            activity a on (j.ActID = a.id))
+                 left join dictionary d on (d.RelationName = 'InfoStatus' and j.InfoStatus = d.RelationID)
+        where j.UserID = #{value} and j.InfoStatus != 3
+        order by j.CreateTime asc
+    </select>
+
+    <select id="selectByJoinInfoID" parameterType="Integer" resultMap="BaseResultMap">
+        select j.*, d.RelationValue InfoStatusz, u.Nickname UNickname, u.Account UAccount, m.Nickname MNickname,
+               m.Account MAccount, m.PhoneNum MPhonenum, a.Name AName, a.Picture APic
+        from (((joininfo j left join users u on (j.UserID = u.id)) left join managers m on (j.ManageID = m.id)) left join
+            activity a on (j.ActID = a.id))
+                 left join dictionary d on (d.RelationName = 'InfoStatus' and j.InfoStatus = d.RelationID)
+        where j.ID = #{value} and j.InfoStatus != 3
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from joininfo
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from joininfo
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Joininfo"
+            useGeneratedKeys="true">
+        insert into joininfo
+        ( ID, ActID, UserID
+        , ManageID, InfoStatus, CreateTime
+        , UpdateTime, UserName, UserPhone
+        , UserIdNo, UserNums, UserPrices
+        , Appointment)
+        values ( #{id,jdbcType=INTEGER}, #{actid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}
+               , #{manageid,jdbcType=INTEGER}, #{infostatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
+               , #{updatetime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}
+               , #{useridno,jdbcType=VARCHAR}, #{usernums,jdbcType=INTEGER}, #{userprices,jdbcType=INTEGER}
+               , #{appointment,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.example.demo.domain.Joininfo"
+            useGeneratedKeys="true">
+        insert into joininfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="actid != null">ActID,</if>
+            <if test="userid != null">UserID,</if>
+            <if test="manageid != null">ManageID,</if>
+            <if test="infostatus != null">InfoStatus,</if>
+            <if test="createtime != null">CreateTime,</if>
+            <if test="updatetime != null">UpdateTime,</if>
+            <if test="username != null and username.trim().length()>0">UserName,</if>
+            <if test="userphone != null and userphone.trim().length()>0">UserPhone,</if>
+            <if test="useridno != null and useridno.trim().length()>0">UserIdNo,</if>
+            <if test="usernums != null">UserNums,</if>
+            <if test="userprices != null">UserPrices,</if>
+            <if test="appointment != null">Appointment,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="actid != null">#{actid,jdbcType=INTEGER},</if>
+            <if test="userid != null">#{userid,jdbcType=INTEGER},</if>
+            <if test="manageid != null">#{manageid,jdbcType=INTEGER},</if>
+            <if test="infostatus != null">#{infostatus,jdbcType=INTEGER},</if>
+            <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+            <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+            <if test="username != null and username.trim().length()>0">#{username,jdbcType=VARCHAR},</if>
+            <if test="userphone != null and userphone.trim().length()>0">#{userphone,jdbcType=VARCHAR},</if>
+            <if test="useridno != null and useridno.trim().length()>0">#{useridno,jdbcType=VARCHAR},</if>
+            <if test="usernums != null">#{usernums,jdbcType=INTEGER},</if>
+            <if test="userprices != null">#{userprices,jdbcType=INTEGER},</if>
+            <if test="appointment != null">#{appointment,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.domain.Joininfo">
+        update joininfo
+        <set>
+            <if test="actid != null">
+                ActID = #{actid,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                UserID = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="manageid != null">
+                ManageID = #{manageid,jdbcType=INTEGER},
+            </if>
+            <if test="infostatus != null">
+                InfoStatus = #{infostatus,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="username != null">
+                UserName = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="userphone != null">
+                UserPhone = #{userphone,jdbcType=VARCHAR},
+            </if>
+            <if test="useridno != null">
+                UserIdNo = #{useridno,jdbcType=VARCHAR},
+            </if>
+            <if test="usernums != null">
+                UserNums = #{usernums,jdbcType=INTEGER},
+            </if>
+            <if test="userprices != null">
+                UserPrices = #{userprices,jdbcType=INTEGER},
+            </if>
+            <if test="appointment != null">
+                Appointment = #{appointment,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.domain.Joininfo">
+        update joininfo
+        set ActID       = #{actid,jdbcType=INTEGER},
+            UserID      = #{userid,jdbcType=INTEGER},
+            ManageID    = #{manageid,jdbcType=INTEGER},
+            InfoStatus  = #{infostatus,jdbcType=INTEGER},
+            CreateTime  = #{createtime,jdbcType=TIMESTAMP},
+            UpdateTime  = #{updatetime,jdbcType=TIMESTAMP},
+            UserName    = #{username,jdbcType=VARCHAR},
+            UserPhone   = #{userphone,jdbcType=VARCHAR},
+            UserIdNo    = #{useridno,jdbcType=VARCHAR},
+            UserNums    = #{usernums,jdbcType=INTEGER},
+            UserPrices  = #{userprices,jdbcType=INTEGER},
+            Appointment = #{appointment,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

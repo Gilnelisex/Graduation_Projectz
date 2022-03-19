@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <link rel="stylesheet" href="../static/project/css/login.css"
+          th:href="@{/project/css/login.css}">
+    <script src="../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+    <script src="../static/project/js/login.js" th:inline="javascript"
+            th:src="@{/project/js/login.js}"></script>
+    <script src="../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(0)"></div>
+    <div class="alert alert-danger" style="width: 360px" th:if="${not #strings.isEmpty(fail)}">
+        <a href="/login" class="close" data-dismiss="alert">&times;</a>
+        <strong th:text="${fail}"></strong>
+    </div>
+    <div class="login">
+        <div class="headers">用户登录</div>
+        <form action="/doLogin" class="loginForm" onsubmit="return submits()" method="post">
+            <input id="account" type="text" name="account" placeholder="请输入账号">
+            <input id="password" type="password" name="password" placeholder="请输入密码">
+            <div class="verifyCode">
+                <input id="verify" class="verify" type="text" name="verify" placeholder="验证码">
+                <img th:onclick="getVCode()" id="code">
+            </div>
+            <input id="submit" type="submit" value="登录">
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<form class="enroll" action="/enroll" method="post">
+    <input id="actid" name="actid" hidden="hidden" th:value="${activity.id}">
+    <input id="userid" name="userid" hidden="hidden" th:value="${session.users.id}">
+    <div class="columns">
+        <div class="columns-title">姓名：</div>
+        <input required id="username" type="text" name="username" placeholder="请输入姓名">
+    </div>
+    <div class="columns">
+        <div class="columns-title">电话号码：</div>
+        <input required id="userphone" type="text" name="userphone" placeholder="请输入手机号码">
+    </div>
+    <div class="columns">
+        <div class="columns-title">身份证号码：</div>
+        <input required id="useridno" type="text" name="useridno" placeholder="请输入身份证号码">
+    </div>
+    <div class="columns">
+        <div class="columns-title">参与人数：</div>
+        <select required id="usernums" name="usernums" th:onchange="ichangeNum()">
+            <option value="">请选择人数</option>
+        </select>
+    </div>
+    <div class="columns">
+        <div class="columns-title">预约日期：</div>
+        <input id="appointment" required name="appointment" type="date" onchange="confirmDate()">
+    </div>
+    <div class="columns">
+        <div class="columns-title">预计价格：</div>
+        <input style="color: #d03018" id="price" disabled="disabled" type="text" th:value="${activity.price}+'元起/人'">
+    </div>
+    <div style="display: flex; width: 100%;justify-content: space-around; margin: 25px 0">
+        <input style="border: #1ab394; background-color: #1ab394" id="submit" type="button" onclick="submitz()" th:value="报名">
+        <input style="border:#f8ac59; background-color: #f8ac59" id="reset" type="reset">
+    </div>
+</form>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        igetNum();
+    })
+    function igetNum() {
+        var num = document.querySelector("#usernums");
+        for (var i = 1; i <= [[${activity.num}]]; i++) {
+            num.options[num.options.length] = new Option(i.toString(), i.toString());
+        }
+    }
+    function confirmDate() {
+        if(Date.parse($("#appointment").val()) < Date.parse(new Date().toLocaleDateString())) {
+            alert("预约日期不能早于今天!");
+            $("#appointment").val("")
+        }else {
+            $.ajax({
+                url: "/confirmDate",
+                method: "post",
+                data: {
+                    "actid": $("#actid").val(),
+                    "userid": [[${session.users.id}]],
+                    "appointment": $("#appointment").val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.toString() === "success") {
+                    } else {
+                        alert("该日期已被预定，请选择其他日期！");
+                        $("#appointment").val("")
+                    }
+                }
+            })
+        }
+    }
+    function ichangeNum() {
+        $("#price").val($("#usernums").val()*[[${activity.price}]])
+    }
+    function submitz() {
+        $.ajax({
+            url: "/enroll",
+            method: "post",
+            data: {
+                "actid": $("#actid").val(),
+                "userid": $("#userid").val(),
+                "username": $("#username").val(),
+                "userphone": $("#userphone").val(),
+                "useridno": $("#useridno").val(),
+                "usernums": $("#usernums").val(),
+                "appointment": $("#appointment").val()
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.toString() === "success") {
+                    alert("报名成功！可以去订单管理页面查看订单。")
+                    location.href = "/"
+                } else {
+                    alert("报名失败，请重试");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

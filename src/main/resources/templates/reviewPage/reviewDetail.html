@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${review.title}"></title>
+    <link rel="stylesheet" href="../../static/component/bootstrap-3.3.7/css/bootstrap.css"
+          th:href="@{/component/bootstrap-3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/project/css/reviewPage.css"
+          th:href="@{/project/css/reviewPage.css}">
+    <link rel="stylesheet" href="../../static/project/css/frame.css"
+          th:href="@{/project/css/frame.css}">
+    <script src="../../static/project/js/frame.js"
+            th:src="@{/project/js/frame.js}"></script>
+    <script src="../../static/component/jquery-2.2.4.js"
+            th:src="@{/component/jquery-2.2.4.js}"></script>
+    <script src="../../static/component/bootstrap-3.3.7/js/bootstrap.js"
+            th:src="@{/component/bootstrap-3.3.7/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="frame :: header(4)"></div>
+    <div class="recommends">
+        <div class="Article">
+            <div class="Title" th:text="${review.title}"></div>
+            <div class="Thing">
+                <div style="width: 16%;text-align: center" th:text="'阅读量 : '+${review.visitnum}"></div>
+                <div th:text="'更新时间 : '+${#dates.format(review.updatetime, 'yyyy-MM-dd HH:mm:ss')}"></div>
+            </div>
+            <div class="Content">
+                <div style="height: 25px; width: 8px; background: #d03018;margin-right: 8px"></div>
+                活动实况
+            </div>
+            <div class="Contents" th:utext="${review.content}"></div>
+            <div th:if="${activity}" class="Content">
+                <div style="height: 25px; width: 8px; background: #d03018;margin-right: 8px"></div>
+                相关活动方案
+            </div>
+            <div th:if="${activity}" class="Contents">
+                <a class="content" style="color: #666;text-decoration: none" th:href="@{/getActivityDetail/(id = ${activity.id})}">
+                    <div class="img">
+                        <img th:src="${activity.picture}">
+                    </div>
+                    <div class="contents">
+                        <div class="contentsTitle" th:text="${activity.name}"></div>
+                        <div class="contentsReason" th:text="${activity.reason}"></div>
+                        <div class="contentsPrice">
+                            <div style=" color: red;font-size: 22px;" th:text="${activity.price}"></div>
+                            <div th:text="'元起/人 | '+${activity.time}+'小时'"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div th:if="${base}" class="Content">
+                <div style="height: 25px; width: 8px; background: #d03018;margin-right: 8px"></div>
+                相关活动场地
+            </div>
+            <div th:if="${base}" class="Contents">
+                <a class="content" style="color: #666;text-decoration: none" th:href="@{/getBaseDetail/(id = ${base.id})}">
+                    <div class="img">
+                        <img th:src="${base.picture}">
+                    </div>
+                    <div class="contents">
+                        <div class="contentsTitle" th:text="${base.name}"></div>
+                        <div class="contentsType">
+                            <div style="border: 1px solid #e9e8e8; text-align: center;padding: 0 13px; line-height: 36px; height: 36px"
+                                 th:text="${base.type}"></div>
+                        </div>
+                        <div class="contentsPrice">
+                            <div th:text="${base.province}"></div>
+                            <div th:text="' . '+${base.city}"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

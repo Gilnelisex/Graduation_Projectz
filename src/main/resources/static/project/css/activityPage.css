@@ -1,0 +1,463 @@
+.headImg {
+    width: 100%;
+    max-height: 360px;
+    min-height: 360px;
+}
+
+.recommends {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 10%;
+}
+
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    bottom: 100px;
+}
+
+#name {
+    height: 52px;
+    width: 80%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px 0 0 10px;
+}
+
+#name::selection {
+    border: none;
+}
+
+.sicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    width: 20%;
+    background-color: #ff1b1b;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
+    font-size: 20px;
+    font-family: Arial,"Microsoft YaHei",Helvetica,sans-serif;
+}
+
+.Titlea {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.select {
+    background: white;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.selects {
+    display: flex;
+    width: 100%;
+    margin: 14px 0;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.selectsTitle {
+    font-weight: 700;
+    font-size: 16px;
+    color: #545658;
+    text-align: left;
+    width: 8%;
+}
+
+.selectsThing {
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+}
+
+.selectsThings {
+    padding: 0 16px;
+    border-radius: 16px;
+    line-height: 33px;
+    height: 33px;
+    margin:5px;
+}
+
+.activesa {
+    background:  #ff1b1b;
+    color: white;
+}
+
+.ActivityList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 36px;
+    background: white;
+}
+
+.ActivityList a {
+    margin: 14px 0;
+    box-shadow: 0 0 4px #888888;
+}
+
+.ActivityList a:hover {
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
+.Activity {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    border: 1px solid #f5f5f5;
+}
+
+.ActivityImg {
+    width: 100%;
+    max-height: 240px;
+    min-height: 240px;
+}
+
+.ActivityTitle {
+    padding: 4px 8px;
+    color: #666;
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.ActivityConts {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.ActivityCont {
+    padding: 4px 8px;
+    font-size: 14px;
+    color: #212121;
+}
+
+.ActivityPrice {
+    text-align: right;
+    color: red;
+    font-size: 22px;
+}
+
+.jump {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    background: white;
+}
+
+.text-center {
+    height: 36.85px;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.pagination .active a {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 20px;
+    border: 1px solid #e32b0c;
+    color: white;
+    background: #e32b0c;
+}
+
+.pagination .active a:hover {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 20px;
+    border: 1px solid #e32b0c;
+    color: white;
+    background: #e32b0c;
+}
+
+.pagination li a {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 20px;
+    border: 1px solid #e32b0c;
+    color: #e32b0c;
+    border-radius: 0;
+}
+
+.pagination li a:hover {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 20px;
+    border: 1px solid #e32b0c;
+    color: white;
+    background: #e32b0c;
+}
+
+.pages {
+    border: 1px solid #e32b0c;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #e32b0c;
+    width: 88px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.total {
+    border: 1px solid #e32b0c;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #e32b0c;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100px;
+}
+
+.ActivityThings {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 36px;
+    margin-top: 36px;
+    background: white;
+    font-family: Arial,"Microsoft YaHei",Helvetica,sans-serif;
+    font-size: 14px;
+}
+
+.ActivityPicture {
+    width: 44%;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.ActivityThing {
+    display: flex;
+    width: 52%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ActivityTitles {
+    height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ActivityReason {
+    height: 136px;
+    width: 100%;
+}
+
+.ActivityRe {
+    display: flex;
+    justify-content: space-between;
+    height: 111px;
+}
+
+.ActivityThree {
+    display: flex;
+    font-size: 15px;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ActivityButton {
+    display: flex;
+    align-items: end;
+    width: 40%;
+}
+
+#AButton {
+    text-decoration: none;
+    text-align: center;
+    background: #e32b0c;
+    color: white;
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.ActivityContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 36px;
+    margin:36px 0;
+    background: white;
+    font-family: Arial,"Microsoft YaHei",Helvetica,sans-serif;
+    font-size: 14px;
+}
+
+.ActivityBright {
+    padding: 36px;
+    width: 100%;
+    background: #fbfbfb;
+}
+
+.ActivityIntroduce {
+    padding: 36px;
+    width: 100%;
+    background: #fbfbfb;
+}
+
+.ChineseTitle {
+    font-size: 30px;
+    font-weight: bold;
+    color: #d03018;
+    width: 100%;
+    text-align: center;
+}
+
+.EnglishTitle {
+    margin: 10px 0 36px 0;
+    width: 100%;
+    font-size: 16px;
+    color: gray;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    margin: 25px 0;
+    padding: 0 25px;
+    font-size:16px;
+    border: 1px solid #f5f5f5;
+}
+
+.content:hover {
+    margin-top: 23px;
+    margin-bottom: 27px;
+    box-shadow: 0 4px 4px #888888;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 60%;
+    margin: 0 25px;
+    justify-content: space-between;
+}
+
+.contentsTitle {
+    color: #666;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-weight: bold;
+}
+
+.contentsReason {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.contentsPrice {
+    display: flex;
+    height: 40px;
+    align-items: baseline;
+}
+
+.contentsType {
+    display: flex;
+    width: 100%;
+}
+
+.Content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    height: 75px;
+    padding-top: 25px;
+    color: #d03018;
+    background: white;
+    padding-left: 75px;
+}
+
+.Contents {
+    width: 100%;
+    background: white;
+    padding: 36px 75px;
+}
+
+.img {
+    width: 36%;
+}
+
+.img img {
+    width: 100%;
+    max-height: 200px;
+    min-height: 200px;
+}
+
+.enroll {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.columns {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 16px 0;
+    width: 50%;
+}
+
+.columns-title {
+    font-size: 16px;
+    width: 25%;
+}
+
+#username, #userphone, #useridno, #usernums, #appointment,#price {
+    width: 64%;
+    height: 36px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #e5e6e7;
+}
+
+#submit, #reset {
+    margin: 0 16px;
+    line-height: 40px;
+    height: 40px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid;
+    border-radius: 4px;
+    color: #fff;
+}
