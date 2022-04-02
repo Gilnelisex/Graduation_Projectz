@@ -3,7 +3,7 @@ $(document).ready(function () {
 })
 
 function getVCode() {
-    document.getElementById("code").src = timestamp("http://localhost:8080/verifyCode");
+    document.getElementById("code").src = timestamp("/verifyCode");
 }
 
 //为url添加时间戳
@@ -38,11 +38,11 @@ function submits() {
     } else if (verify == null || verify.trim().length === 0) {
         window.alert("验证码不能为空!")
     } else if (!testNickname.test(nickname)) {
-        window.alert("昵称必须超过2位且只包含中文英文和数字!")
+        window.alert("昵称必须是2-10位且只包含中文英文和数字!")
     } else if (!testAccount.test(account)) {
-        window.alert("账号必须超过4位且只包含英文和数字!")
+        window.alert("账号必须是4-10位且只包含英文和数字!")
     } else if (!testPassword.test(password)) {
-        window.alert("密码必须超过4位且只包含英文和数字!")
+        window.alert("密码必须是4-10位且只包含英文和数字!")
     } else if (!testPhone.test(phonenum)) {
         window.alert("中国手机号码必须是11位且只包含数字!")
     } else {
