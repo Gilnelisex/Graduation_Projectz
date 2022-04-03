@@ -11,25 +11,25 @@
     <input id="userid" name="userid" hidden="hidden" th:value="${session.users.id}">
     <div class="columns">
         <div class="columns-title">姓名：</div>
-        <input required id="username" type="text" name="username" placeholder="请输入姓名">
+        <input id="username" type="text" name="username" placeholder="请输入姓名">
     </div>
     <div class="columns">
         <div class="columns-title">电话号码：</div>
-        <input required id="userphone" type="text" name="userphone" placeholder="请输入手机号码">
+        <input id="userphone" type="text" name="userphone" placeholder="请输入手机号码">
     </div>
     <div class="columns">
         <div class="columns-title">身份证号码：</div>
-        <input required id="useridno" type="text" name="useridno" placeholder="请输入身份证号码">
+        <input id="useridno" type="text" name="useridno" placeholder="请输入身份证号码">
     </div>
     <div class="columns">
         <div class="columns-title">参与人数：</div>
-        <select required id="usernums" name="usernums" th:onchange="ichangeNum()">
+        <select id="usernums" name="usernums" th:onchange="ichangeNum()">
             <option value="">请选择人数</option>
         </select>
     </div>
     <div class="columns">
         <div class="columns-title">预约日期：</div>
-        <input id="appointment" required name="appointment" type="date" onchange="confirmDate()">
+        <input id="appointment" name="appointment" type="date" onchange="confirmDate()">
     </div>
     <div class="columns">
         <div class="columns-title">预计价格：</div>
@@ -73,7 +73,7 @@
                 }
             })
         }
-    }
+    }.2
     function ichangeNum() {
         $("#price").val($("#usernums").val()*[[${activity.price}]])
     }
