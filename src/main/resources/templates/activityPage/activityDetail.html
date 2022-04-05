@@ -21,6 +21,12 @@
 <body>
 <div class="container">
     <div th:replace="frame :: header(2)"></div>
+    <div class="links">
+        <ol class="breadcrumb" style="margin: 16px 0;padding: 0 15%;">
+            <li><a th:href="@{/activityPage}" style="text-decoration: none;">拓展活动</a></li>
+            <li class="active" th:text="${activity.name}"></li>
+        </ol>
+    </div>
     <div class="recommends">
         <div class="ActivityThings">
             <img class="ActivityPicture" th:src="${activity.picture}">
@@ -32,7 +38,7 @@
                 <div class="ActivityRe">
                     <div class="ActivityThree">
                         <div><span style="color:#565656;">项目类型：</span><span th:text="${activity.type}"></span></div>
-                        <div><span style="color:#565656;">适合人数：</span><span th:text="${activity.num}+'人以内'"></span></div>
+                        <div><span style="color:#565656;">适合人数：</span><span th:text="${activity.num}+'人以上'"></span></div>
                         <div><span style="color:#565656;">项目用时：</span><span th:text="${activity.time}+'小时'"></span></div>
                     </div>
                     <div class="ActivityButton">
@@ -85,7 +91,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel0">用户报名</h4>
             </div>
-            <div id="updateform-modal-body0" class="modal-body">
+            <div id="updateform-modal-body0" style="text-align: center;margin: 10px 0" class="modal-body">
                 ...
             </div>
         </div>

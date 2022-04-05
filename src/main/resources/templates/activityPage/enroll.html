@@ -23,9 +23,10 @@
     </div>
     <div class="columns">
         <div class="columns-title">参与人数：</div>
-        <select id="usernums" name="usernums" th:onchange="ichangeNum()">
-            <option value="">请选择人数</option>
-        </select>
+        <input id="usernums" type="text" name="usernums" th:onblur="ichangeNum()" placeholder="请输入参与人数">
+        <!--        <select id="usernums" name="usernums" th:onchange="ichangeNum()">-->
+        <!--            <option value="">请选择人数</option>-->
+        <!--        </select>-->
     </div>
     <div class="columns">
         <div class="columns-title">预约日期：</div>
@@ -36,25 +37,26 @@
         <input style="color: #d03018" id="price" disabled="disabled" type="text" th:value="${activity.price}+'元起/人'">
     </div>
     <div style="display: flex; width: 100%;justify-content: space-around; margin: 25px 0">
-        <input style="border: #1ab394; background-color: #1ab394" id="submit" type="button" onclick="submitz()" th:value="报名">
+        <input style="border: #1ab394; background-color: #1ab394" id="submit" type="button" onclick="submitz()"
+               th:value="报名">
         <input style="border:#f8ac59; background-color: #f8ac59" id="reset" type="reset">
     </div>
 </form>
 <script th:inline="javascript">
-    $(document).ready(function () {
-        igetNum();
-    })
-    function igetNum() {
-        var num = document.querySelector("#usernums");
-        for (var i = 1; i <= [[${activity.num}]]; i++) {
-            num.options[num.options.length] = new Option(i.toString(), i.toString());
-        }
-    }
+    // $(document).ready(function () {
+    //     igetNum();
+    // })
+    // function igetNum() {
+    //     var num = document.querySelector("#usernums");
+    //     for (var i = 1; i <= [[${activity.num}]]; i++) {
+    //         num.options[num.options.length] = new Option(i.toString(), i.toString());
+    //     }
+    // }
     function confirmDate() {
-        if(Date.parse($("#appointment").val()) < Date.parse(new Date().toLocaleDateString())) {
+        if (Date.parse($("#appointment").val()) < Date.parse(new Date().toLocaleDateString())) {
             alert("预约日期不能早于今天!");
             $("#appointment").val("")
-        }else {
+        } else {
             $.ajax({
                 url: "/confirmDate",
                 method: "post",
@@ -73,33 +75,71 @@
                 }
             })
         }
-    }.2
-    function ichangeNum() {
-        $("#price").val($("#usernums").val()*[[${activity.price}]])
     }
+
+    function ichangeNum() {
+        if ($("#usernums").val() < [[${activity.num}]]) {
+            alert("警告：人数少于推荐人数时，总价格会以推荐人数计算价格！")
+            $("#price").val([[${activity.num}]] * [[${activity.price}]])
+        } else {
+            $("#price").val($("#usernums").val() * [[${activity.price}]])
+        }
+    }
+
     function submitz() {
-        $.ajax({
-            url: "/enroll",
-            method: "post",
-            data: {
-                "actid": $("#actid").val(),
-                "userid": $("#userid").val(),
-                "username": $("#username").val(),
-                "userphone": $("#userphone").val(),
-                "useridno": $("#useridno").val(),
-                "usernums": $("#usernums").val(),
-                "appointment": $("#appointment").val()
-            },
-            success: function (data) {
-                console.log(data);
-                if (data.toString() === "success") {
-                    alert("报名成功！可以去订单管理页面查看订单。")
-                    location.href = "/"
-                } else {
-                    alert("报名失败，请重试");
+        var actid = $("#actid").val()
+        var userid = $("#userid").val()
+        var username = $("#username").val()
+        var userphone = $("#userphone").val()
+        var useridno = $("#useridno").val()
+        var usernums = $("#usernums").val()
+        var appointment = $("#appointment").val()
+        var testUsername = /^[\u4e00-\u9fa5]+$/;
+        var testPhone = /^[0-9]{11}$/;
+        var testUseridno = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        var testUsernums = /^[0-9]+$/;
+        if (username == null || username.trim().length === 0) {
+            alert("姓名不能为空!");
+        } else if (userphone == null || userphone.trim().length === 0) {
+            alert("手机号码不能为空!");
+        } else if (useridno == null || useridno.trim().length === 0) {
+            alert("身份证号码不能为空!");
+        } else if (usernums == null || usernums.trim().length === 0) {
+            alert("预约人数不能为空!");
+        } else if (appointment == null || appointment.trim().length === 0) {
+            alert("预约日期不能为空")
+        } else if (!testUsername.test(username)) {
+            alert("姓名必须只有汉字！")
+        } else if (!testPhone.test(userphone)) {
+            alert("手机号码格式错误！")
+        } else if (!testUseridno.test(useridno)) {
+            alert("身份证号码格式错误！")
+        } else if (!testUsernums.test(usernums)) {
+            alert("预约人数只能填写数字")
+        } else {
+            $.ajax({
+                url: "/enroll",
+                method: "post",
+                data: {
+                    "actid": actid,
+                    "userid": userid,
+                    "username": username,
+                    "userphone": userphone,
+                    "useridno": useridno,
+                    "usernums": usernums,
+                    "appointment": appointment
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.toString() === "success") {
+                        alert("报名成功！可以去订单管理页面查看订单。")
+                        location.reload()
+                    } else {
+                        alert("报名失败，请重试");
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 </script>
 </body>

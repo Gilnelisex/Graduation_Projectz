@@ -110,7 +110,7 @@
             <input id="city" name="city" type="text" th:value="${session.selectiveBase.city}">
         </form>
         <div class="BaseList">
-            <a th:href="@{/getBaseDetail/(id = ${baseList.id})}" style="text-decoration: none; width: 30%" th:each="baseList,status : ${baseList}">
+            <a th:href="@{/getBaseDetail/(id = ${baseList.id})}" style="text-decoration: none; width: 31.33%" th:each="baseList,status : ${baseList}">
                 <div class="Base">
                     <img class="BaseImg" th:src="${baseList.picture}">
                     <div class="BaseTitle">

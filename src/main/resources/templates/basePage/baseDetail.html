@@ -21,6 +21,12 @@
 <body>
 <div class="container">
     <div th:replace="frame :: header(3)"></div>
+    <div class="links">
+    <ol class="breadcrumb" style="margin: 16px 0;padding: 0 15%;">
+        <li><a th:href="@{/basePage}" style="text-decoration: none;">拓展基地</a></li>
+        <li class="active" th:text="${base.name}"></li>
+    </ol>
+</div>
     <div class="recommends">
         <div class="BaseContent">
             <div class="ContentTitle" th:text="${base.name}+'-专注'+${base.name}+'团建|'+${base.name}+'团建活动方案策划'"></div>

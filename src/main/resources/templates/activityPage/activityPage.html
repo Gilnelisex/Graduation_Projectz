@@ -96,7 +96,7 @@
             <input id="endtime" name="endtime" type="text" th:value="${session.selectiveActivity.endtime}">
         </form>
         <div class="ActivityList">
-            <a th:href="@{/getActivityDetail/(id = ${activityList.id})}" style="text-decoration: none; width: 30%" th:each="activityList,status : ${activityList}">
+            <a th:href="@{/getActivityDetail/(id = ${activityList.id})}" style="text-decoration: none; width: 31.33%" th:each="activityList,status : ${activityList}">
                 <div class="Activity">
                     <img class="ActivityImg" th:src="${activityList.picture}">
                     <div class="ActivityTitle" th:text="${activityList.name}"></div>

@@ -287,7 +287,11 @@ public class PageController {
     @ResponseBody
     public String enroll(Joininfo joininfo) {
         Activity activity = this.activityService.selectByPrimaryKey(joininfo.getActid());
-        joininfo.setUserprices(joininfo.getUsernums()*activity.getPrice());
+        int nums = joininfo.getUsernums();
+        if(nums < activity.getNum()) {
+            nums = activity.getNum();
+        }
+        joininfo.setUserprices(nums*activity.getPrice());
         if(this.joininfoService.insertSelective(joininfo) == 1) {
             return "success";
         } else {

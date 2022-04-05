@@ -10,7 +10,7 @@
     align-items: center;
     width: 100%;
     margin: 0;
-    padding: 0 10%;
+    padding: 0 15%;
 }
 
 .search {
@@ -99,20 +99,19 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
     width: 100%;
-    padding: 36px;
+    padding: 30px;
     background: white;
 }
 
 .ActivityList a {
-    margin: 14px 0;
+    margin: 10px 1%;
     box-shadow: 0 0 4px #888888;
 }
 
 .ActivityList a:hover {
-    margin-top: 12px;
-    margin-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 12px;
 }
 
 .Activity {
@@ -124,8 +123,8 @@
 
 .ActivityImg {
     width: 100%;
-    max-height: 240px;
-    min-height: 240px;
+    max-height: 200px;
+    min-height: 200px;
 }
 
 .ActivityTitle {
@@ -161,7 +160,6 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-    background: white;
 }
 
 .text-center {
@@ -236,7 +234,6 @@
     justify-content: space-between;
     width: 100%;
     padding: 36px;
-    margin-top: 36px;
     background: white;
     font-family: Arial,"Microsoft YaHei",Helvetica,sans-serif;
     font-size: 14px;
@@ -343,14 +340,14 @@
 .content {
     display: flex;
     width: 100%;
-    margin: 25px 0;
-    padding: 0 25px;
+    margin: 16px 0 25px 0;
+    padding: 16px 16px;
     font-size:16px;
     border: 1px solid #f5f5f5;
 }
 
 .content:hover {
-    margin-top: 23px;
+    margin-top: 14px;
     margin-bottom: 27px;
     box-shadow: 0 4px 4px #888888;
 }
@@ -410,7 +407,7 @@
 .Contents {
     width: 100%;
     background: white;
-    padding: 36px 75px;
+    padding: 0 100px;
 }
 
 .img {

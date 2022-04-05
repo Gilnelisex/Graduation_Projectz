@@ -30,11 +30,11 @@
         <div class="JoinInfoTitles">预约时间：</div>
         <input class="JoinInfoContents" readonly="readonly" th:value="${#dates.format(joininfo.appointment, 'yyyy-MM-dd')}">
     </div>
-    <div class="qrJoinInfos">
+    <div class="qrJoinInfos" th:if="${joininfo.mnickname}">
         <div class="JoinInfoTitles">审核管理员：</div>
         <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.mnickname}">
     </div>
-    <div class="qrJoinInfos">
+    <div class="qrJoinInfos" th:if="${joininfo.mphonenum}">
         <div class="JoinInfoTitles">咨询电话：</div>
         <input class="JoinInfoContents" readonly="readonly" th:value="${joininfo.mphonenum}">
     </div>

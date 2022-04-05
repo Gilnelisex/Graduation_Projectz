@@ -32,8 +32,8 @@
             <div class="myOrder"><span
                     style="min-width: 10px; min-height: 25px;background: #d03018;margin-right: 10px"></span>我的报名
             </div>
-            <div class="content" th:if="!${joininfoList}">您没有下过任何订单
-                <a href="/activityPage" id="goToActivity">前往预约活动</a>
+            <div class="content" th:if="!${joininfoList}">您没有报名任何活动
+                <a href="/activityPage" id="goToActivity">前往报名活动</a>
             </div>
             <div class="contents" th:if="${joininfoList}">
                 <div class="orders" style="border: 1px solid #cbd1d7;margin: 14px;width: 100%"
@@ -43,8 +43,8 @@
                         <div class="orderContents" style="color: black; font-weight: bold"
                              th:text="${joininfoList.aname}"></div>
                         <div class="orderContents" th:text="'预约人：'+${joininfoList.username}"></div>
-                        <div class="orderContents" th:text="'审核管理员：'+${joininfoList.mnickname}"></div>
-                        <div class="orderContents" th:text="'咨询电话：'+${joininfoList.mphonenum}"></div>
+                        <div class="orderContents" th:if="${joininfoList.mnickname}" th:text="'审核管理员：'+${joininfoList.mnickname}"></div>
+                        <div class="orderContents" th:if="${joininfoList.mphonenum}" th:text="'咨询电话：'+${joininfoList.mphonenum}"></div>
                         <div class="orderContents" th:text="'订单状态：'+${joininfoList.infostatusz}"></div>
                         <div class="orderContents"
                              th:text="'预约日期：'+${#dates.format(joininfoList.appointment, 'yyyy-MM-dd')}"></div>
