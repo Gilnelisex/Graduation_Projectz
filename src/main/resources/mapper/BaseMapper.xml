@@ -94,7 +94,7 @@
         select
         <include refid="Base_Column_List"/>
         from base
-        where ID = #{id,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER} and BaseStatus = 1
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
