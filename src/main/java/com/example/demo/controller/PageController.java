@@ -219,12 +219,12 @@ public class PageController {
         this.reviewService.updateVisit(id);
         Review review = this.reviewService.selectByPrimaryKey(id);
         Activity activity = this.activityService.selectByPrimaryKey(review.getRelationact());
-        model.addAttribute("review", review);
-        model.addAttribute("activity", activity);
-        if(activity!=null) {
-            Base base = this.baseService.selectByPrimaryKey(activity.getField());
-            model.addAttribute("base", base);
+        Base base = this.baseService.selectByPrimaryKey(activity.getField());
+        if(activity.getActstatus()==1)  {
+            model.addAttribute("activity", activity);
         }
+        model.addAttribute("review", review);
+        model.addAttribute("base", base);
         return "reviewPage/reviewDetail";
     }
 

@@ -91,7 +91,7 @@
         select
         <include refid="Base_Column_List"/>
         from activity
-        where ID = #{id,jdbcType=INTEGER} and ActStatus = 1
+        where ID = #{id,jdbcType=INTEGER}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
